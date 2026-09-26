@@ -1,50 +1,36 @@
 //Esli Quest Esabu 24019733
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+ 
 public class Question9 {
- 
     public static void main(String[] args) {
-        Shape shape = new Shape();
+        // Scanner for reading keyboard input (not file input) from the user
+        Scanner keyboard = new Scanner(System.in);
  
-        // Overloading in action - same method name, different parameter lists
-        shape.describe();
-        shape.describe("a generic 2D figure");
+        try {
+            PrintWriter writer = new PrintWriter("results.txt");
  
-        // Overriding in action - Circle provides its own version of area()
-        Circle circle = new Circle(3.0);
-        System.out.println("Shape area (default): " + shape.area());
-        System.out.println("Circle area (overridden): " + circle.area());
-    }
-}
+            // Loop three times to collect three students' details
+            for (int i = 1; i <= 3; i++) {
+                System.out.print("Enter name for student " + i + ": ");
+                String name = keyboard.nextLine();
  
-// Parent class containing two overloaded "describe" methods
-class Shape {
+                System.out.print("Enter score for student " + i + ": ");
+                int score = keyboard.nextInt();
+                keyboard.nextLine(); // consume the leftover newline after nextInt()
  
-    // Overload 1: no parameters, prints a default description
-    public void describe() {
-        System.out.println("This is a shape.");
-    }
+                // Write the pair as a single comma-separated line
+                writer.println(name + "," + score);
+            }
  
-    // Overload 2: takes a String parameter for a custom description
-    public void describe(String details) {
-        System.out.println("This is a shape: " + details);
-    }
- 
-    // A method that subclasses can override
-    public double area() {
-        return 0.0; // no area defined for a generic shape
-    }
-}
- 
-// Subclass that overrides area() to provide circle-specific behaviour
-class Circle extends Shape {
-    private double radius;
- 
-    public Circle(double radius) {
-        this.radius = radius;
-    }
- 
-    @Override
-    public double area() {
-        return Math.PI * radius * radius;
+            writer.close();
+            System.out.println("Results have been written to results.txt");
+        } catch (IOException e) {
+            System.out.println("Something went wrong while writing to results.txt");
+        } finally {
+            keyboard.close();
+        }
     }
 }
