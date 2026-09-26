@@ -1,23 +1,29 @@
 //Esli Quest Esabu 24019733
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+ 
 public class Question5 {
- 
-    // Version 1: only a name is given
-    public static void displayInfo(String name) {
-        System.out.println("Name: " + name);
-    }
- 
-    // Version 2: name and age are given
-    public static void displayInfo(String name, int age) {
-        System.out.println("Name: " + name + ", Age: " + age);
-    }
- 
     public static void main(String[] args) {
-        // Calling the single-parameter version
-        displayInfo("Amantle");
+        try {
+            FileReader reader = new FileReader("story.txt");
+            Scanner sc = new Scanner(reader);
  
-        // Calling the two-parameter version
-        displayInfo("Kagiso", 21);
+            int wordCount = 0;
+ 
+            // hasNext()/next() read one word at a time, splitting on whitespace,
+            // which is different from hasNextLine()/nextLine()
+            while (sc.hasNext()) {
+                sc.next();
+                wordCount++;
+            }
+ 
+            sc.close();
+            System.out.println("story.txt contains " + wordCount + " words.");
+        } catch (IOException e) {
+            System.out.println("Could not read story.txt");
+        }
     }
 }
  
