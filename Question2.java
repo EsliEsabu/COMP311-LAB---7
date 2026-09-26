@@ -1,19 +1,26 @@
 //Esli Quest Esabu 24019733
 
+import java.io.IOException;
+import java.io.PrintWriter;
+ 
 public class Question2 {
-
-    // Static method that calculates and returns the area of a circle.
-    // Formula: area = pi * radius^2
-    public static double circleArea(double radius) {
-        return Math.PI * radius * radius;
-    }
-
     public static void main(String[] args) {
-        // Calling circleArea() with two different radius values
-        double area1 = circleArea(2.0);
-        double area2 = circleArea(5.5);
-
-        System.out.println("Area of circle with radius 2.0: " + area1);
-        System.out.println("Area of circle with radius 5.5: " + area2);
+        try {
+            // Opens (or creates) output.txt for writing
+            PrintWriter writer = new PrintWriter("output.txt");
+ 
+            // println() works the same way as System.out.println(), but writes to the file
+            writer.println("This is the first line.");
+            writer.println("This is the second line.");
+            writer.println("This is the third line.");
+            writer.println("This is the fourth line.");
+            writer.println("This is the fifth line.");
+ 
+            writer.close(); // must close the file so the data is actually saved
+            System.out.println("Successfully wrote 5 lines to output.txt");
+        } catch (IOException e) {
+            System.out.println("Something went wrong while writing to output.txt");
+        }
     }
 }
+ 
