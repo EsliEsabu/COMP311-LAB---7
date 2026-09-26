@@ -1,34 +1,27 @@
 //Esli Quest Esabu 24019733
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+ 
 public class Question8 {
- 
     public static void main(String[] args) {
-        Animal genericAnimal = new Animal();
-        genericAnimal.speak();
+        try {
+            FileReader reader = new FileReader("numbers.txt");
+            Scanner sc = new Scanner(reader);
  
-        // Cat is a subclass of Animal - its speak() overrides the parent's version
-        Cat myCat = new Cat();
-        myCat.speak();
+            int total = 0;
  
-        // Polymorphism: even though the reference type is Animal,
-        // Java calls Cat's overridden version at run time
-        Animal polymorphicAnimal = new Cat();
-        polymorphicAnimal.speak();
-    }
-}
+            // hasNextInt()/nextInt() let us read only integers from the file
+            while (sc.hasNextInt()) {
+                total += sc.nextInt();
+            }
  
-// Parent class with a generic speak() method
-class Animal {
-    public void speak() {
-        System.out.println("The animal makes a generic sound.");
-    }
-}
- 
-// Subclass that overrides speak() with cat-specific behaviour
-class Cat extends Animal {
-    @Override
-    public void speak() {
-        System.out.println("The cat says: Meow!");
+            sc.close();
+            System.out.println("The total of all numbers in numbers.txt is: " + total);
+        } catch (IOException e) {
+            System.out.println("Could not read numbers.txt");
+        }
     }
 }
  
