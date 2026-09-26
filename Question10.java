@@ -1,41 +1,37 @@
 //Esli Quest Esabu 24019733
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
  
 public class Question10 {
- 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        try {
+            FileReader reader = new FileReader("results.txt");
+            Scanner sc = new Scanner(reader);
+            PrintWriter writer = new PrintWriter("passed.txt");
  
-        // Reading input from the user
-        System.out.print("Enter the length of the rectangle: ");
-        double length = scanner.nextDouble();
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
  
-        System.out.print("Enter the width of the rectangle: ");
-        double width = scanner.nextDouble();
+                // Split "Name,Score" into its two parts using the comma
+                String[] parts = line.split(",");
+                String name = parts[0];
+                int score = Integer.parseInt(parts[1].trim());
  
-        // Calling the static methods from the Rectangle class
-        double area = Rectangle.area(length, width);
-        double perimeter = Rectangle.perimeter(length, width);
+                // Only write the student to passed.txt if they scored 50 or above
+                if (score >= 50) {
+                    writer.println(name + "," + score);
+                }
+            }
  
-        System.out.println("Area: " + area);
-        System.out.println("Perimeter: " + perimeter);
- 
-        scanner.close();
-    }
-}
- 
-// Rectangle class containing two static utility methods
-class Rectangle {
- 
-    // Static method to calculate the area of a rectangle
-    public static double area(double length, double width) {
-        return length * width;
-    }
- 
-    // Static method to calculate the perimeter of a rectangle
-    public static double perimeter(double length, double width) {
-        return 2 * (length + width);
+            sc.close();
+            writer.close();
+            System.out.println("Passing students have been written to passed.txt");
+        } catch (IOException e) {
+            System.out.println("Something went wrong while processing the files.");
+        }
     }
 }
  
