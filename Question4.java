@@ -1,31 +1,30 @@
 //Esli Quest Esabu 24019733
 
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+ 
 public class Question4 {
-
-    // Version 1: combines two ints by adding them
-    public static int combine(int a, int b) {
-        return a + b;
-    }
-
-    // Version 2: combines two Strings by joining (concatenating) them
-    public static String combine(String a, String b) {
-        return a + b;
-    }
-
-    // Version 3: combines two doubles by adding them
-    public static double combine(double a, double b) {
-        return a + b;
-    }
-
     public static void main(String[] args) {
-        // The compiler picks the correct version based on the argument types
-        int intResult = combine(3, 4);
-        String stringResult = combine("Hello, ", "World!");
-        double doubleResult = combine(2.5, 3.5);
-
-        System.out.println("combine(int, int) = " + intResult);
-        System.out.println("combine(String, String) = " + stringResult);
-        System.out.println("combine(double, double) = " + doubleResult);
+        try {
+            FileReader reader = new FileReader("story.txt");
+            Scanner sc = new Scanner(reader);
+ 
+            int lineCount = 0;
+ 
+            // Every time we successfully read a line, increase the counter
+            while (sc.hasNextLine()) {
+                sc.nextLine();
+                lineCount++;
+            }
+ 
+            sc.close();
+            System.out.println("story.txt contains " + lineCount + " lines.");
+        } catch (IOException e) {
+            System.out.println("Could not read story.txt");
+        }
     }
 }
+ 
+ 
