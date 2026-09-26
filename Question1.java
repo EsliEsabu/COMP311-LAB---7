@@ -1,19 +1,28 @@
 //Esli Quest Esabu 24019733
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+ 
 public class Question1 {
-
-    // Static method: takes an int parameter and returns true/false
-    // depending on whether it is even.
-    public static boolean isEven(int n) {
-        // A number is even if there is no remainder when divided by 2
-        return n % 2 == 0;
-    }
-
     public static void main(String[] args) {
-        // Calling isEven() a few times from main with different values
-        System.out.println("Is 4 even? " + isEven(4));
-        System.out.println("Is 7 even? " + isEven(7));
-        System.out.println("Is 0 even? " + isEven(0));
-        System.out.println("Is -6 even? " + isEven(-6));
+        // File operations can throw exceptions, so we wrap them in try/catch
+        try {
+            // Open the file for reading
+            FileReader reader = new FileReader("story.txt");
+            // Scannerize the reader so we can use familiar Scanner methods
+            Scanner sc = new Scanner(reader);
+ 
+            // Iterate through the file, one line at a time
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                System.out.println(line);
+            }
+ 
+            sc.close(); // always close the file when done
+        } catch (IOException e) {
+            // Handles the case where story.txt does not exist or can't be opened
+            System.out.println("Could not find or read story.txt");
+        }
     }
 }
