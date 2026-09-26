@@ -1,24 +1,26 @@
 //Esli Quest Esabu 24019733
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+ 
 public class Question3 {
-
-    // void method: performs an action (printing) but returns nothing
-    public static void printBanner() {
-        System.out.println("=== Welcome to COMP311 ===");
-    }
-
-    // Returning method: builds the same text and returns it as a String,
-    // leaving it up to the caller to decide what to do with it
-    public static String getBanner() {
-        return "=== Welcome to COMP311 ===";
-    }
-
     public static void main(String[] args) {
-        // Calling the void method - it prints on its own line
-        printBanner();
-
-        // Calling the returning method - we must store or use the result ourselves
-        String banner = getBanner();
-        System.out.println("Banner stored in a variable: " + banner);
+        try {
+            // This file is not expected to exist - it will trigger an exception
+            FileReader reader = new FileReader("missing.txt");
+            Scanner sc = new Scanner(reader);
+ 
+            while (sc.hasNextLine()) {
+                System.out.println(sc.nextLine());
+            }
+ 
+            sc.close();
+        } catch (IOException e) {
+            // The try/catch block gives us control over what happens on failure,
+            // so we print a friendly message instead of crashing
+            System.out.println("Sorry, the file 'missing.txt' could not be found.");
+        }
     }
 }
+ 
