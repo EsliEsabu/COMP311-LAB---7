@@ -1,42 +1,31 @@
 //Esli Quest Esabu 24019733
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+ 
 public class Question6 {
- 
     public static void main(String[] args) {
-        // Static method is called using the class name - no object needed
-        int sum = Calculator.add(4, 5);
-        System.out.println("4 + 5 = " + sum);
+        try {
+            // Source file (reading)
+            FileReader reader = new FileReader("story.txt");
+            Scanner sc = new Scanner(reader);
  
-        // Instance method requires creating an object first
-        Calculator calc = new Calculator();
-        int product1 = calc.multiply(3, 6);
-        int product2 = calc.multiply(2, 2);
+            // Destination file (writing)
+            PrintWriter writer = new PrintWriter("story_copy.txt");
  
-        System.out.println("3 * 6 = " + product1);
-        System.out.println("2 * 2 = " + product2);
-        System.out.println("multiply() was called " + calc.getCallCount() + " times");
-    }
-}
+            // Read each line from the source and immediately write it to the destination
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                writer.println(line);
+            }
  
-// Calculator class containing both a static and an instance method
-class Calculator {
- 
-    // Private instance field - belongs to each object, not the class itself
-    private int callCount = 0;
- 
-    // Static method - performs addition, does not depend on any object state
-    public static int add(int a, int b) {
-        return a + b;
-    }
- 
-    // Instance method - uses and updates the instance field callCount
-    public int multiply(int a, int b) {
-        callCount++; // increment every time this method is called
-        return a * b;
-    }
- 
-    // Helper instance method to check how many times multiply() has run
-    public int getCallCount() {
-        return callCount;
+            sc.close();
+            writer.close();
+            System.out.println("story.txt has been copied to story_copy.txt");
+        } catch (IOException e) {
+            System.out.println("Something went wrong while copying the file.");
+        }
     }
 }
