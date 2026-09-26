@@ -1,22 +1,25 @@
 //Esli Quest Esabu 24019733
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+ 
 public class Question7 {
- 
-    // This method doubles its own local copy of "number".
-    // It has no effect on the variable that was passed in from main().
-    public static void tryToDouble(int number) {
-        number = number * 2;
-        System.out.println("Inside tryToDouble(): " + number);
-    }
- 
     public static void main(String[] args) {
-        int myNumber = 10;
-        System.out.println("Before calling tryToDouble(): " + myNumber);
+        try {
+            // The second argument, true, tells FileWriter to APPEND
+            // instead of overwriting the existing file
+            FileWriter fw = new FileWriter("output.txt", true);
+            PrintWriter writer = new PrintWriter(fw);
  
-        tryToDouble(myNumber);
+            writer.println("This is an appended sixth line.");
+            writer.println("This is an appended seventh line.");
  
-        // myNumber is unchanged here because only a copy was passed in
-        System.out.println("After calling tryToDouble(): " + myNumber);
+            writer.close();
+            System.out.println("Two new lines were appended to output.txt");
+        } catch (IOException e) {
+            System.out.println("Something went wrong while appending to output.txt");
+        }
     }
 }
  
